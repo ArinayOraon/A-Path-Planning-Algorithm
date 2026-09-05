@@ -71,9 +71,7 @@ def a_star(given_grid, start_node, goal_node):
                 curr_node = parent_nodes[curr_node]
             best_path.append(start_node)
             best_path.reverse()
-            total_cost = 0
-            for i in best_path:
-                total_cost =total_cost + cost[i]
+            total_cost = cost[best_path[-2]] + 1
             return [best_path,len(parent_nodes),total_cost,parent_nodes]
 
         for children in get_childern(curr_node,given_grid):
