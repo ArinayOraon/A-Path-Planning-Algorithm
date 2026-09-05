@@ -2,7 +2,7 @@ import math
 import heapq
 
 def get_heuristics(a,b):
-    # Distance from current node to goal.
+    # Distance from current node to goal
     return math.sqrt(((a[0]-b[0])*(a[0]-b[0])) + ((a[1]-b[1])*(a[1]-b[1])))
 
 def get_childern(node, given_grid):
@@ -23,11 +23,14 @@ def get_childern(node, given_grid):
 
     children = []
 
+    #Possible coordinates of the next node
     for diff_row, diff_col in directions:
         next_row = curr_row + diff_row
         next_col = curr_col + diff_col
 
+        #Checking if the node is in the grid
         if 0<= next_row < rows and 0 <= next_col < cols:
+            #Checking if the node is an obstacle
             if given_grid[next_row][next_col] == ".":
                 children.append((next_row,next_col))
 
@@ -35,8 +38,10 @@ def get_childern(node, given_grid):
 
 def a_star(given_grid, start_node, goal_node):
 
+    #The priority queue
     priority_q = []
 
+    #Dictionary of the parent node of every children node. This is also used to store all the explored nodes
     parent_nodes ={}
 
     #For A* : f(n) = f(cost) + f(heuristics)
@@ -54,6 +59,7 @@ def a_star(given_grid, start_node, goal_node):
 
         priority, curr_node = heapq.heappop(priority_q)
 
+        #Checking if the current node has already been explored with a better priority
         if priority != f_n_score.get(curr_node,float("inf")):
             continue
 
